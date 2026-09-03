@@ -118,7 +118,8 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, project }) => {
                     <Image
                       src={project.image}
                       alt={project.title}
-                      fill
+                      width={1200}
+                      height={700}
                       unoptimized
                       className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-[1.01] transition-all duration-500"
                     />

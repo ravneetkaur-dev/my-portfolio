@@ -22,13 +22,15 @@ export const LaptopMockup: React.FC<LaptopMockupProps> = ({ project }) => {
         </div>
 
         {/* Laptop Screen Content Display */}
-        <div className="relative flex-1 bg-[#0d0a1a] overflow-hidden flex items-center justify-center">
+        <div className="relative w-full flex-1 bg-[#0d0a1a] overflow-hidden flex items-center justify-center">
           {project.image ? (
             <Image
               src={project.image}
               alt={project.title}
-              fill
+              width={800}
+              height={500}
               unoptimized
+              priority
               className="w-full h-full object-contain bg-[#090714] p-0.5 filter brightness-95 group-hover:brightness-105 transition-all duration-500"
             />
           ) : (
