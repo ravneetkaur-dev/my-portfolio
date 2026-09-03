@@ -74,7 +74,7 @@ export const StackDeck: React.FC = () => {
       <div className="flex items-center justify-between pt-1 pb-2.5 border-b border-violet-900/40">
         <span className="text-xs font-mono tracking-widest text-violet-400 font-bold uppercase flex items-center gap-2">
           <Layers size={14} className="text-violet-400" />
-          <span>04 / TECH STACK</span>
+          <span>04 / STACK</span>
         </span>
 
         <span className="text-xs font-mono text-gray-400">
@@ -239,14 +239,13 @@ export const StackDeck: React.FC = () => {
                 zIndex,
                 opacity,
               }}
-              transition={{
-                type: 'spring',
-                stiffness: 280,
-                damping: 24,
-                mass: 0.7,
-              }}
+              transition={
+                isMobileViewport
+                  ? { duration: 0.3, ease: [0.25, 1, 0.5, 1] }
+                  : { type: 'spring', stiffness: 280, damping: 24, mass: 0.7 }
+              }
               style={{ pointerEvents }}
-              className={`absolute inset-0 w-full h-full rounded-3xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden transition-colors duration-300 ${isActive ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer hover:border-violet-300'
+              className={`absolute inset-0 w-full h-full rounded-3xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden transition-colors duration-300 transform-gpu will-change-transform ${isActive ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer hover:border-violet-300'
                 } ${borderStyle} ${bgGradient}`}
             >
               {/* Ambient Background Radial Glow */}

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Layers, ShieldCheck, CheckCircle2, ExternalLink, Sparkles, Cpu } from 'lucide-react';
 import { Project } from '@/types/project';
@@ -114,9 +115,11 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, project }) => {
               <div className="space-y-3">
                 {project.image && (
                   <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-violet-500/30 bg-[#0d0a1a] shadow-xl group">
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.title}
+                      fill
+                      unoptimized
                       className="w-full h-full object-cover object-top filter brightness-95 group-hover:scale-[1.01] transition-all duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080614] via-transparent to-transparent opacity-60 pointer-events-none" />

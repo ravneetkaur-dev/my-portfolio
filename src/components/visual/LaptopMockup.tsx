@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Project } from '@/types/project';
 
 interface LaptopMockupProps {
@@ -23,9 +24,11 @@ export const LaptopMockup: React.FC<LaptopMockupProps> = ({ project }) => {
         {/* Laptop Screen Content Display */}
         <div className="relative flex-1 bg-[#0d0a1a] overflow-hidden flex items-center justify-center">
           {project.image ? (
-            <img
+            <Image
               src={project.image}
               alt={project.title}
+              fill
+              unoptimized
               className="w-full h-full object-contain bg-[#090714] p-0.5 filter brightness-95 group-hover:brightness-105 transition-all duration-500"
             />
           ) : (

@@ -11,12 +11,12 @@ export const StackSection: React.FC = () => {
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Main Stacked Photo Deck Viewport with Scroll Reveal Animation */}
+      {/* Main Stacked Photo Deck Viewport with Instant Scroll Reveal Animation */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.96 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.05 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="flex-1 flex flex-col justify-center my-auto py-2 z-10"
       >
         <StackDeck />
