@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Obsidian Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#160c33" />
+      <stop offset="50%" stop-color="#090616" />
+      <stop offset="100%" stop-color="#04030a" />
+    </linearGradient>
+
+    <!-- Glowing Border Gradient -->
+    <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#4c1d95" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Squircle Container -->
+  <rect x="24" y="24" width="464" height="464" rx="120" fill="#090616" />
+  <rect x="24" y="24" width="464" height="464" rx="120" fill="url(#bg-grad)" />
+
+  <!-- Outer Glass Border -->
+  <rect x="24" y="24" width="464" height="464" rx="120" fill="none" stroke="#8b5cf6" stroke-width="8" opacity="0.4" />
+  <rect x="24" y="24" width="464" height="464" rx="120" fill="none" stroke="url(#border-grad)" stroke-width="8" />
+
+  <!-- ===== LETTER R ===== -->
+  <!-- R Stem -->
+  <rect x="112" y="132" width="44" height="248" rx="12" fill="#f3e8ff" />
+  
+  <!-- R Loop Outer -->
+  <path d="M 134 132 H 210 C 255 132 280 152 280 194 C 280 236 255 256 210 256 H 134 Z" fill="#ffffff" />
+
+  <!-- R Loop Inner Cutout -->
+  <path d="M 156 166 H 204 C 228 166 238 176 238 194 C 238 212 228 222 204 222 H 156 Z" fill="#090616" />
+
+  <!-- R Diagonal Leg -->
+  <path d="M 170 240 L 264 374 C 268 380 264 380 254 380 H 208 C 204 380 200 377 195 370 L 138 270 Z" fill="#c084fc" />
+
+  <!-- ===== LETTER K ===== -->
+  <!-- K Stem -->
+  <rect x="296" y="132" width="44" height="248" rx="12" fill="#f3e8ff" />
+
+  <!-- K Upper Arm -->
+  <path d="M 330 264 L 424 138 C 428 133 432 132 440 132 H 462 C 468 132 469 136 463 144 L 362 284 Z" fill="#ffffff" />
+
+  <!-- K Lower Arm -->
+  <path d="M 346 250 L 460 369 C 465 375 463 380 455 380 H 428 C 421 380 417 376 412 369 L 320 274 Z" fill="#a78bfa" />
+</svg>
