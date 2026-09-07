@@ -65,11 +65,11 @@ export const TechIcon: React.FC<TechIconProps> = ({ name, size = 15, className =
   // Data
   if (normName.includes('postgres')) return <SiPostgresql size={size} className={`text-blue-400 ${className}`} />;
   if (normName.includes('mongo')) return <SiMongodb size={size} className={`text-emerald-400 ${className}`} />;
-  if (normName.includes('mysql')) return <SiMysql size={size} className={`text-amber-400 ${className}`} />;
+  if (normName.includes('mysql')) return <SiMysql size={size} className={`text-sky-400 ${className}`} />;
   if (normName.includes('prisma')) return <SiPrisma size={size} className={`text-teal-300 ${className}`} />;
 
   // Libraries & Workflow
-  if (normName.includes('tanstack') || normName.includes('query')) return <SiReactquery size={size} className={`text-rose-400 ${className}`} />;
+  if (normName.includes('tanstack') || normName.includes('query')) return <SiReactquery size={size} className={`text-sky-400 ${className}`} />;
   if (normName.includes('hook form')) return <SiReact size={size} className={`text-[#ec5990] ${className}`} />;
   if (normName.includes('zod')) return <SiZod size={size} className={`text-indigo-400 ${className}`} />;
   if (normName === 'git') return <SiGit size={size} className={`text-orange-500 ${className}`} />;
@@ -77,16 +77,16 @@ export const TechIcon: React.FC<TechIconProps> = ({ name, size = 15, className =
   if (normName.includes('postman')) return <SiPostman size={size} className={`text-orange-400 ${className}`} />;
 
   // Foundations
-  if (normName.includes('data structures') || normName.includes('dsa') || normName.includes('algorithm')) return <TbBinaryTree size={size} className={`text-violet-400 ${className}`} />;
-  if (normName.includes('oop') || normName.includes('object')) return <TbCube size={size} className={`text-purple-400 ${className}`} />;
-  if (normName.includes('dbms') || normName.includes('database')) return <TbDatabase size={size} className={`text-cyan-400 ${className}`} />;
+  if (normName.includes('data structures') || normName.includes('dsa') || normName.includes('algorithm')) return <TbBinaryTree size={size} className={`text-[#ff9eaa] ${className}`} />;
+  if (normName.includes('oop') || normName.includes('object')) return <TbCube size={size} className={`text-[#ff9eaa] ${className}`} />;
+  if (normName.includes('dbms') || normName.includes('database')) return <TbDatabase size={size} className={`text-[#ff9eaa] ${className}`} />;
   if (normName.includes('operating') || normName.includes('os')) return <TbCpu size={size} className={`text-emerald-400 ${className}`} />;
 
   // Other utilities
-  if (normName.includes('aws') || normName.includes('amazon')) return <FaAws size={size} className={`text-amber-500 ${className}`} />;
+  if (normName.includes('aws') || normName.includes('amazon')) return <FaAws size={size} className={`text-orange-400 ${className}`} />;
   if (normName.includes('stripe')) return <SiStripe size={size} className={`text-purple-400 ${className}`} />;
   if (normName.includes('docker')) return <SiDocker size={size} className={`text-sky-400 ${className}`} />;
   if (normName.includes('redis')) return <SiRedis size={size} className={`text-red-500 ${className}`} />;
 
-  return <TbLayersIntersect size={size} className={`text-violet-400 ${className}`} />;
+  return <TbLayersIntersect size={size} className={`text-[#ff9eaa] ${className}`} />;
 };
