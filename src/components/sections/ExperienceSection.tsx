@@ -21,11 +21,11 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section
       id="experience"
-      className="w-full lg:w-screen lg:min-w-[100vw] h-auto min-h-screen lg:h-screen flex-shrink-0 flex flex-col justify-between px-6 sm:px-10 lg:pl-12 lg:pr-28 pt-14 pb-16 lg:pt-14 lg:pb-16 relative select-none lg:snap-start overflow-hidden bg-gradient-to-b from-[#090716] via-[#080614] to-[#090716]"
+      className="w-full lg:w-screen lg:min-w-[100vw] h-auto min-h-screen lg:h-screen flex-shrink-0 flex flex-col justify-between px-6 sm:px-10 lg:pl-12 lg:pr-28 pt-14 pb-16 lg:pt-14 lg:pb-16 relative select-none lg:snap-start overflow-hidden bg-gradient-to-b from-[#210a14] via-[#2d0e1b] to-[#210a14]"
     >
       {/* Background Ambient Radial Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#fb7185]/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#ff9eaa]/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Main Container with Scroll Reveal Animation */}
       <motion.div
@@ -36,13 +36,13 @@ export const ExperienceSection: React.FC = () => {
         className="w-full max-w-4xl mx-auto space-y-3 z-10 flex flex-col justify-center flex-1 my-auto relative py-1"
       >
         {/* Top Section Sub-Header */}
-        <div className="flex items-center justify-between pb-2 border-b border-violet-900/40">
-          <span className="text-xs font-mono tracking-widest text-violet-400 font-bold uppercase flex items-center gap-2">
-            <BookOpen size={14} className="text-violet-400" />
-            <span>05 / DEVELOPER DIARY</span>
+        <div className="flex items-center justify-between pb-2 border-b border-[#3b1124]/40">
+          <span className="text-xs font-mono tracking-widest font-bold uppercase flex items-center gap-2">
+            <BookOpen size={14} className="text-rose-400" />
+            <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">05 / DEVELOPER DIARY</span>
           </span>
 
-          <span className="flex text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-violet-950/80 border border-violet-700/40 text-violet-300 items-center gap-1.5">
+          <span className="flex text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-black/80 border border-pink-400/40 text-pink-200 items-center gap-1.5 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>PERSONAL ARCHIVE</span>
           </span>
@@ -53,7 +53,7 @@ export const ExperienceSection: React.FC = () => {
           <DiaryCoverWrapper>
             <ExecutivePen />
             <div
-              className="relative w-full h-full rounded-[22px] bg-[#0d0822] border border-violet-500/40 grid grid-cols-12 gap-0 z-10 shadow-2xl"
+              className="relative w-full h-full rounded-[22px] bg-[#16050b] border border-[#fb7185]/40 grid grid-cols-12 gap-0 z-10 shadow-2xl"
               style={{
                 clipPath:
                   'polygon(0 0, calc(50% - 32px) 0, 50% 12px, calc(50% + 32px) 0, 100% 0, 100% 100%, calc(50% + 32px) 100%, 50% calc(100% - 12px), calc(50% - 32px) 100%, 0 100%)',
@@ -74,8 +74,8 @@ export const ExperienceSection: React.FC = () => {
               onClick={() => setMobilePageIndex(0)}
               className={`px-3.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider transition-all cursor-pointer ${
                 mobilePageIndex === 0
-                  ? 'bg-gradient-to-r from-violet-600 via-purple-600 to-violet-800 text-white shadow-md shadow-violet-950 border border-violet-400/60'
-                  : 'bg-violet-950/70 text-gray-400 hover:text-white border border-violet-800/40'
+                  ? 'bg-gradient-to-r from-pink-300 via-rose-400 via-pink-500 to-black text-white shadow-[0_4px_16px_rgba(244,63,94,0.35)] border border-pink-300/40'
+                  : 'bg-black/70 text-gray-400 hover:text-white border border-rose-900/40'
               }`}
             >
               Work Experience
@@ -84,8 +84,8 @@ export const ExperienceSection: React.FC = () => {
               onClick={() => setMobilePageIndex(1)}
               className={`px-3.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider transition-all cursor-pointer ${
                 mobilePageIndex === 1
-                  ? 'bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-800 text-white shadow-md shadow-cyan-950 border border-cyan-400/60'
-                  : 'bg-violet-950/70 text-gray-400 hover:text-white border border-violet-800/40'
+                  ? 'bg-gradient-to-r from-pink-300 via-rose-400 via-pink-500 to-black text-white shadow-[0_4px_16px_rgba(244,63,94,0.35)] border border-pink-300/40'
+                  : 'bg-black/70 text-gray-400 hover:text-white border border-rose-900/40'
               }`}
             >
               Education Log
@@ -93,7 +93,7 @@ export const ExperienceSection: React.FC = () => {
           </div>
 
           {/* Notebook Page Card */}
-          <div className="w-full relative rounded-2xl bg-[#0d0822] border-2 border-violet-500/50 shadow-2xl overflow-hidden min-h-[340px] p-1">
+          <div className="w-full relative rounded-2xl bg-[#16050b] border-2 border-[#fb7185]/50 shadow-2xl overflow-hidden min-h-[340px] p-1">
             <AnimatePresence mode="wait">
               {mobilePageIndex === 0 ? (
                 <motion.div

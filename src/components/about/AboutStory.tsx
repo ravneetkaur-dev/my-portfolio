@@ -13,7 +13,7 @@ export const AboutStory: React.FC = () => {
       className="space-y-4 text-base sm:text-lg text-slate-200 font-medium leading-relaxed tracking-wide max-w-2xl"
     >
       <p>
-        I'm a full-stack developer who loves turning ideas into real products and understanding what happens underneath them. I like being involved in the whole process — shaping the <span className="text-violet-300 font-normal">architecture</span>, building the <span className="text-indigo-300 font-normal">backend</span>, crafting the UI, and solving the edge cases that make a system production-ready.
+        I'm a full-stack developer who loves turning ideas into real products and understanding what happens underneath them. I like being involved in the whole process — shaping the <span className="text-[#ff9eaa] font-normal">architecture</span>, building the <span className="text-rose-300 font-normal">backend</span>, crafting the UI, and solving the edge cases that make a system production-ready.
       </p>
       <p>
         Naturally curious, I dig until I know <em className="text-white font-bold not-italic">why</em> something works, not just how to use it. From databases and authentication to media delivery and payments, I take complicated problems and break them down into reliable, intuitive systems.

@@ -1,48 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <!-- Background Obsidian Gradient -->
+    <!-- Background Obsidian Burgundy Gradient -->
     <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#160c33" />
-      <stop offset="50%" stop-color="#090616" />
-      <stop offset="100%" stop-color="#04030a" />
+      <stop offset="0%" stop-color="#05040d" />
+      <stop offset="50%" stop-color="#210a14" />
+      <stop offset="100%" stop-color="#3b1124" />
     </linearGradient>
 
-    <!-- Glowing Border Gradient -->
+    <!-- Glowing Border Gradient (Rose Pink to Peach) -->
     <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c084fc" />
-      <stop offset="50%" stop-color="#8b5cf6" />
-      <stop offset="100%" stop-color="#4c1d95" />
+      <stop offset="0%" stop-color="#ff9eaa" />
+      <stop offset="50%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+
+    <!-- RK Initial Accent Gradient -->
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9eaa" />
+      <stop offset="100%" stop-color="#f43f5e" />
     </linearGradient>
   </defs>
 
-  <!-- Base Squircle Container -->
-  <rect x="24" y="24" width="464" height="464" rx="120" fill="#090616" />
-  <rect x="24" y="24" width="464" height="464" rx="120" fill="url(#bg-grad)" />
+  <!-- Base Squircle Container (Full Bleed - No Side Gaps) -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="#05040d" />
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg-grad)" />
 
   <!-- Outer Glass Border -->
-  <rect x="24" y="24" width="464" height="464" rx="120" fill="none" stroke="#8b5cf6" stroke-width="8" opacity="0.4" />
-  <rect x="24" y="24" width="464" height="464" rx="120" fill="none" stroke="url(#border-grad)" stroke-width="8" />
+  <rect x="4" y="4" width="504" height="504" rx="108" fill="none" stroke="#fb7185" stroke-width="8" opacity="0.4" />
+  <rect x="4" y="4" width="504" height="504" rx="108" fill="none" stroke="url(#border-grad)" stroke-width="8" />
+
+  <!-- Ambient Internal Rose Glow -->
+  <circle cx="256" cy="256" r="200" fill="url(#border-grad)" opacity="0.15" />
 
   <!-- ===== LETTER R ===== -->
   <!-- R Stem -->
-  <rect x="112" y="132" width="44" height="248" rx="12" fill="#f3e8ff" />
+  <rect x="112" y="132" width="44" height="248" rx="12" fill="#fff1f2" />
   
   <!-- R Loop Outer -->
   <path d="M 134 132 H 210 C 255 132 280 152 280 194 C 280 236 255 256 210 256 H 134 Z" fill="#ffffff" />
 
   <!-- R Loop Inner Cutout -->
-  <path d="M 156 166 H 204 C 228 166 238 176 238 194 C 238 212 228 222 204 222 H 156 Z" fill="#090616" />
+  <path d="M 156 166 H 204 C 228 166 238 176 238 194 C 238 212 228 222 204 222 H 156 Z" fill="#210a14" />
 
   <!-- R Diagonal Leg -->
-  <path d="M 170 240 L 264 374 C 268 380 264 380 254 380 H 208 C 204 380 200 377 195 370 L 138 270 Z" fill="#c084fc" />
+  <path d="M 170 240 L 264 374 C 268 380 264 380 254 380 H 208 C 204 380 200 377 195 370 L 138 270 Z" fill="url(#accent-grad)" />
 
   <!-- ===== LETTER K ===== -->
   <!-- K Stem -->
-  <rect x="296" y="132" width="44" height="248" rx="12" fill="#f3e8ff" />
+  <rect x="296" y="132" width="44" height="248" rx="12" fill="#fff1f2" />
 
   <!-- K Upper Arm -->
   <path d="M 330 264 L 424 138 C 428 133 432 132 440 132 H 462 C 468 132 469 136 463 144 L 362 284 Z" fill="#ffffff" />
 
   <!-- K Lower Arm -->
-  <path d="M 346 250 L 460 369 C 465 375 463 380 455 380 H 428 C 421 380 417 376 412 369 L 320 274 Z" fill="#a78bfa" />
+  <path d="M 346 250 L 460 369 C 465 375 463 380 455 380 H 428 C 421 380 417 376 412 369 L 320 274 Z" fill="url(#accent-grad)" />
+
+  <!-- Floating Rose Petal Icon Accent -->
+  <path d="M 420 85 C 400 95 390 120 405 135 C 420 150 445 140 455 120 C 460 100 445 80 420 85 Z" fill="url(#accent-grad)" opacity="0.9" />
 </svg>

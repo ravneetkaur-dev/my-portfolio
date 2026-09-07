@@ -62,14 +62,17 @@ export const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="h-full p-4 sm:p-5 rounded-2xl bg-[#0a0718]/90 border border-violet-700/40 shadow-inner flex flex-col justify-between relative overflow-hidden">
+    <div className="h-full p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#120409]/95 via-[#080204]/98 to-[#020001]/95 border border-pink-500/30 shadow-inner flex flex-col justify-between relative overflow-hidden">
+      {/* Top Gradient Accent Edge */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-300 via-rose-400 via-pink-500 to-black" />
+
       {/* Top Ambient Glow */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-pink-300/20 via-rose-400/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none" />
 
       {/* Form Sub-Header */}
-      <div className="pb-3 border-b border-violet-800/40 flex items-center justify-between z-10">
+      <div className="pb-3 border-b border-rose-900/40 flex items-center justify-between z-10">
         <div>
-          <span className="text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-widest block">
+          <span className="text-[9px] font-mono font-bold uppercase tracking-widest block bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">
             ENCRYPTED SIGNAL TRANSMISSION
           </span>
           <h4 className="text-sm font-mono font-bold text-white">
@@ -77,8 +80,8 @@ export const ContactForm: React.FC = () => {
           </h4>
         </div>
 
-        <div className="px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-500/30 text-[9px] font-mono text-cyan-300 flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+        <div className="px-2 py-0.5 rounded bg-black/80 border border-pink-400/40 text-[9px] font-mono text-pink-200 flex items-center gap-1.5 shadow-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-pink-300 to-rose-400 animate-pulse" />
           <span>PORTAL ONLINE</span>
         </div>
       </div>
@@ -88,8 +91,8 @@ export const ContactForm: React.FC = () => {
         {/* Field 01: Name */}
         <div className="space-y-1">
           <label className="text-[10px] font-mono text-gray-300 font-bold uppercase tracking-wider flex items-center justify-between">
-            <span>[01 / Your Name]</span>
-            <span className="text-violet-400/80 text-[9px]">REQUIRED</span>
+            <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">[01 / Your Name]</span>
+            <span className="text-pink-300/80 text-[9px]">REQUIRED</span>
           </label>
           <input
             type="text"
@@ -97,15 +100,15 @@ export const ContactForm: React.FC = () => {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="e.g. Alex Vance"
-            className="w-full px-3 py-2 rounded-lg bg-[#0d0922] border border-violet-800/60 focus:bg-[#120a2e] focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 text-xs font-mono text-white placeholder-gray-500 transition-all duration-200 shadow-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gradient-to-r from-[#0d0206] via-black to-[#060103] border border-rose-900/60 focus:bg-black focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-pink-400/40 text-xs font-mono text-white placeholder-gray-500 transition-all duration-200 shadow-sm"
           />
         </div>
 
         {/* Field 02: Return Email */}
         <div className="space-y-1">
           <label className="text-[10px] font-mono text-gray-300 font-bold uppercase tracking-wider flex items-center justify-between">
-            <span>[02 / Your Email]</span>
-            <span className="text-violet-400/80 text-[9px]">EMAIL</span>
+            <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">[02 / Your Email]</span>
+            <span className="text-pink-300/80 text-[9px]">EMAIL</span>
           </label>
           <input
             type="email"
@@ -113,15 +116,15 @@ export const ContactForm: React.FC = () => {
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="alex@company.com"
-            className="w-full px-3 py-2 rounded-lg bg-[#0d0922] border border-violet-800/60 focus:bg-[#120a2e] focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 text-xs font-mono text-white placeholder-gray-500 transition-all duration-200 shadow-sm"
+            className="w-full px-3 py-2 rounded-lg bg-gradient-to-r from-[#0d0206] via-black to-[#060103] border border-rose-900/60 focus:bg-black focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-pink-400/40 text-xs font-mono text-white placeholder-gray-500 transition-all duration-200 shadow-sm"
           />
         </div>
 
         {/* Field 03: Encrypted Message */}
         <div className="space-y-1 flex-1 flex flex-col justify-between">
           <label className="text-[10px] font-mono text-gray-300 font-bold uppercase tracking-wider flex items-center justify-between">
-            <span>[03 / Message]</span>
-            <span className="text-violet-400/80 text-[9px]">PAYLOAD</span>
+            <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">[03 / Message]</span>
+            <span className="text-pink-300/80 text-[9px]">PAYLOAD</span>
           </label>
           <textarea
             required
@@ -129,7 +132,7 @@ export const ContactForm: React.FC = () => {
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             placeholder="Tell me about your project, idea, or role opportunity..."
-            className="w-full flex-1 min-h-[70px] px-3 py-2 rounded-lg bg-[#0d0922] border border-violet-800/60 focus:bg-[#120a2e] focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 text-xs font-mono text-white placeholder-gray-500 transition-all duration-200 resize-none shadow-sm"
+            className="w-full flex-1 min-h-[70px] px-3 py-2 rounded-lg bg-gradient-to-r from-[#0d0206] via-black to-[#060103] border border-rose-900/60 focus:bg-black focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-pink-400/40 text-xs font-mono text-white placeholder-gray-500 transition-all duration-200 resize-none shadow-sm"
           />
         </div>
 
@@ -143,8 +146,8 @@ export const ContactForm: React.FC = () => {
               : status === 'error'
               ? 'bg-red-900/90 text-red-200 border border-red-500 shadow-red-950'
               : status === 'sending'
-              ? 'bg-violet-950 text-violet-200 border border-violet-700 cursor-wait'
-              : 'bg-gradient-to-r from-purple-700 via-violet-800 via-[#27104d] to-[#0a0618] hover:from-purple-600 hover:via-violet-700 hover:to-[#120a28] text-white border border-purple-400/50 hover:border-violet-300 shadow-[0_4px_20px_rgba(126,34,206,0.35)] hover:shadow-[0_4px_25px_rgba(139,92,246,0.5)] active:scale-[0.99]'
+              ? 'bg-rose-950 text-rose-200 border border-rose-700 cursor-wait'
+              : 'bg-gradient-to-r from-pink-300 via-rose-400 via-pink-500 to-black hover:from-pink-200 hover:via-rose-300 hover:to-pink-400 text-white border border-pink-300/40 shadow-[0_4px_22px_rgba(244,63,94,0.4)] hover:shadow-[0_4px_30px_rgba(244,63,94,0.6)] active:scale-[0.99]'
           }`}
         >
           {status === 'sending' ? (
@@ -164,7 +167,7 @@ export const ContactForm: React.FC = () => {
             </>
           ) : (
             <>
-              <Send size={14} className="text-cyan-300" />
+              <Send size={14} className="text-white drop-shadow" />
               <span>TRANSMIT MESSAGE</span>
             </>
           )}
@@ -172,12 +175,12 @@ export const ContactForm: React.FC = () => {
       </form>
 
       {/* Footer Security Note */}
-      <div className="pt-2 border-t border-violet-900/40 flex items-center justify-between text-[9px] font-mono text-gray-400 z-10">
+      <div className="pt-2 border-t border-rose-900/40 flex items-center justify-between text-[9px] font-mono text-gray-400 z-10">
         <span className="flex items-center gap-1">
-          <ShieldAlert size={11} className="text-cyan-400" />
+          <ShieldAlert size={11} className="text-rose-400" />
           <span>256-BIT ENCRYPTED CHANNEL</span>
         </span>
-        <span className="text-violet-400/80">DIRECT INBOX DELIVERY</span>
+        <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent font-bold">DIRECT INBOX DELIVERY</span>
       </div>
     </div>
   );
