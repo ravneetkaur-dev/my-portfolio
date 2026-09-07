@@ -14,7 +14,6 @@ import { MobileFooter } from '@/components/common/Footer';
 import { useHorizontalScroll } from '@/hooks/useHorizontalScroll';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useKeyboardNav } from '@/hooks/useKeyboardNav';
-import { ScrollFlyingPetals } from '@/components/visual/ScrollFlyingPetals';
 import { SectionId } from '@/types/navigation';
 
 export default function Home() {
@@ -37,9 +36,6 @@ export default function Home() {
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-[#0b0914] text-white">
-      {/* Global Scroll Transition Flying Rose Petals Overlay */}
-      <ScrollFlyingPetals containerRef={containerRef} />
-
       {/* Sidebar Rail */}
       <Sidebar onNavigate={handleNavigate} />
 

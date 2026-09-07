@@ -14,7 +14,7 @@ export const AboutHeadline: React.FC = () => {
     >
       <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
         I like finding the{' '}
-        <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-violet-300 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
           machinery behind the magic.
         </span>
       </h2>

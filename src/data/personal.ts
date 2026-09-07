@@ -8,7 +8,7 @@ export const PERSONAL_INFO = {
   location: "India",
   status: "AVAILABLE FOR WORK",
   email: "ravneet1107@gmail.com",
-  resume: "/Ravneet_Kaur_Resume.pdf",
+  resume: "/resume.pdf",
   socials: {
     github: "https://github.com/ravneetkaur-dev",
     linkedin: "https://linkedin.com/in/ravneet-kaur07",

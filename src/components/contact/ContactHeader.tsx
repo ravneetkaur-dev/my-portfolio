@@ -6,9 +6,9 @@ import { PERSONAL_INFO } from '@/data/personal';
 
 export const ContactHeader: React.FC = () => {
   return (
-    <div className="flex items-center justify-between pb-2 border-b border-rose-900/40">
-      <span className="text-xs font-mono tracking-widest text-[#ff9eaa] font-bold uppercase flex items-center gap-2">
-        <Send size={14} className="text-[#ff9eaa] animate-pulse" />
+    <div className="flex items-center justify-between pb-2 border-b border-violet-900/40">
+      <span className="text-xs font-mono tracking-widest text-violet-400 font-bold uppercase flex items-center gap-2">
+        <Send size={14} className="text-cyan-400 animate-pulse" />
         <span>06 / CONTACT TERMINAL</span>
       </span>
 

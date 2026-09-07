@@ -16,7 +16,7 @@ export const StackHeader: React.FC<StackHeaderProps> = ({
   return (
     <div className="space-y-3 z-10 flex-shrink-0">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1">
-        <span className="text-xs font-mono tracking-widest font-bold uppercase bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 bg-clip-text text-transparent">
+        <span className="text-xs font-mono tracking-widest text-violet-400 font-bold uppercase">
           04 / TECH STACK
         </span>
 
@@ -31,8 +31,8 @@ export const StackHeader: React.FC<StackHeaderProps> = ({
           onClick={() => onFilterChange('all')}
           className={`px-3 py-1.5 rounded-lg text-xs font-mono tracking-wider transition-all cursor-pointer whitespace-nowrap ${
             activeFilter === 'all'
-              ? 'bg-gradient-to-r from-pink-300 via-rose-400 via-pink-500 to-black text-white font-bold border border-pink-300/40 shadow-[0_4px_16px_rgba(244,63,94,0.35)]'
-              : 'bg-black/70 text-gray-400 hover:text-white hover:bg-rose-950/40 border border-rose-900/40'
+              ? 'bg-violet-600/30 text-violet-200 border border-violet-500/50 shadow-md shadow-violet-950'
+              : 'bg-[#0c091f]/60 text-gray-400 hover:text-white hover:bg-violet-950/40 border border-transparent'
           }`}
         >
           ALL (30)
@@ -46,8 +46,8 @@ export const StackHeader: React.FC<StackHeaderProps> = ({
               onClick={() => onFilterChange(cat.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono tracking-wider transition-all cursor-pointer whitespace-nowrap ${
                 isActive
-                  ? 'bg-gradient-to-r from-pink-300 via-rose-400 via-pink-500 to-black text-white font-bold border border-pink-300/40 shadow-[0_4px_16px_rgba(244,63,94,0.35)]'
-                  : 'bg-black/70 text-gray-400 hover:text-white hover:bg-rose-950/40 border border-rose-900/40'
+                  ? 'bg-violet-600/30 text-violet-200 border border-violet-500/50 shadow-md shadow-violet-950'
+                  : 'bg-[#0c091f]/60 text-gray-400 hover:text-white hover:bg-violet-950/40 border border-transparent'
               }`}
             >
               {cat.label}

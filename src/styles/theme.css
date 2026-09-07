@@ -1,20 +1,20 @@
 :root {
   --bg-primary: #05040d;
-  --bg-secondary: #16060c;
-  --bg-card: rgba(36, 12, 22, 0.85);
-  --bg-card-hover: rgba(52, 18, 32, 0.95);
+  --bg-secondary: #090715;
+  --bg-card: rgba(12, 9, 24, 0.85);
+  --bg-card-hover: rgba(18, 14, 36, 0.95);
   
-  --accent-peach: #ff9eaa;
-  --accent-peach-deep: #fb7185;
-  --accent-peach-glow: #fecdd3;
+  --accent-violet: #8b5cf6;
+  --accent-violet-deep: #5b21b6;
+  --accent-violet-glow: #a78bfa;
   --accent-black: #05040d;
   
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
   --text-dim: #6b7280;
   
-  --border-subtle: rgba(255, 158, 170, 0.25);
-  --border-active: rgba(254, 205, 211, 0.55);
+  --border-subtle: rgba(139, 92, 246, 0.18);
+  --border-active: rgba(167, 139, 250, 0.45);
 }
 
 /* Hide scrollbar for clean horizontal canvas */
@@ -31,22 +31,22 @@
   width: 6px;
 }
 .modal-scrollbar::-webkit-scrollbar-track {
-  background: rgba(26, 8, 15, 0.4);
+  background: rgba(9, 7, 21, 0.4);
   border-radius: 9999px;
   margin-top: 8px;
   margin-bottom: 8px;
 }
 .modal-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 158, 170, 0.4);
+  background: rgba(139, 92, 246, 0.4);
   border-radius: 9999px;
 }
 .modal-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(254, 205, 211, 0.7);
+  background: rgba(167, 139, 250, 0.7);
 }
 
-/* Glassmorphism panel styling with deep rose peach gradient */
+/* Glassmorphism panel styling with mysterious violet-to-black gradient */
 .glass-panel {
-  background: linear-gradient(135deg, rgba(38, 12, 22, 0.9) 0%, rgba(16, 5, 10, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(16, 12, 33, 0.9) 0%, rgba(5, 4, 13, 0.95) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
@@ -55,13 +55,13 @@
 
 .glass-panel:hover {
   border-color: var(--border-active);
-  box-shadow: 0 10px 30px -10px rgba(255, 158, 170, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3);
 }
 
-/* Wave mesh background effect with rose peach aura */
+/* Wave mesh background effect with dark violet-black aura */
 .wave-mesh-bg {
   background-image: 
-    radial-gradient(circle at 50% 40%, rgba(251, 113, 133, 0.18) 0%, rgba(16, 5, 10, 0.95) 75%),
+    radial-gradient(circle at 50% 40%, rgba(91, 33, 182, 0.15) 0%, rgba(5, 4, 13, 0.95) 75%),
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 100% 100%, 40px 40px, 40px 40px;

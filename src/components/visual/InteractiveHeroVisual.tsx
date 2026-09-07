@@ -1,436 +1,295 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-interface FlyingPetal {
+interface Node {
   id: number;
-  spriteIndex: number;
-  angle: number;
-  orbitX: number;
-  orbitY: number;
-  speed: number;
   x: number;
   y: number;
+  z: number;
+  baseX: number;
+  baseY: number;
+  baseZ: number;
   vx: number;
   vy: number;
-  rotation: number;
-  rotationSpeed: number;
-  width: number;
-  height: number;
-  opacity: number;
-  phase: number;
-  depth: number;
-}
-
-interface OrbitDot {
-  id: number;
-  baseAngle: number;
-  speed: number;
-  orbitX: number;
-  orbitY: number;
-  tilt: number;
+  vz: number;
   radius: number;
+  isAnchor: boolean;
   color: string;
   glowColor: string;
-  isGlowPulse: boolean;
   phase: number;
 }
 
 interface Particle {
   x: number;
   y: number;
+  z: number;
   radius: number;
   alpha: number;
-  phase: number;
+  speedY: number;
 }
 
 export const InteractiveHeroVisual: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const mouseRef = useRef({
+  const [mouseState, setMouseState] = useState({
     x: -1000,
     y: -1000,
-    targetX: 0,
-    targetY: 0,
     active: false,
   });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setMouseState({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      active: true,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMouseState({ x: -1000, y: -1000, active: false });
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Load backgroundless main rose visual from user reference image
-    const roseImg = new Image();
-    let roseLoaded = false;
-    roseImg.src = '/images/user-rose-visual.png';
-    roseImg.onload = () => {
-      roseLoaded = true;
-    };
+    let animId: number;
+    let time = 0;
 
-    // Load actual backgroundless flying rose petal sprites extracted from user screenshot
-    const petalImgs: HTMLImageElement[] = [];
-    const petalSrcs = [
-      '/images/petal-1.png',
-      '/images/petal-2.png',
-      '/images/petal-3.png',
-      '/images/petal-4.png',
-    ];
-
-    petalSrcs.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-      petalImgs.push(img);
-    });
-
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-    let animationFrame = 0;
-    let previousTime = performance.now();
-
-    const resize = () => {
+    const updateSize = () => {
       const rect = container.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width = rect.width;
+      canvas.height = rect.height;
     };
 
-    resize();
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(container);
+    updateSize();
+    window.addEventListener('resize', updateSize);
 
-    const handlePointerMove = (event: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = event.clientX - rect.left;
-      const my = event.clientY - rect.top;
+    // 1. Initialize Mysterious Dark Violet Living System Nodes (45 Nodes)
+    const nodeCount = 45;
+    const nodes: Node[] = [];
+    const colors = ['#7c3aed', '#6b21a8', '#9333ea', '#5b21b6', '#a855f7'];
 
-      mouseRef.current.x = mx;
-      mouseRef.current.y = my;
-      mouseRef.current.targetX = (mx / width - 0.5) * 35;
-      mouseRef.current.targetY = (my / height - 0.5) * 35;
-      mouseRef.current.active = true;
-    };
+    for (let i = 0; i < nodeCount; i++) {
+      const angle = (i / nodeCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+      const rx = Math.random() * 220 + 50;
+      const ry = Math.random() * 180 + 40;
 
-    const handlePointerLeave = () => {
-      mouseRef.current.active = false;
-      mouseRef.current.targetX = 0;
-      mouseRef.current.targetY = 0;
-    };
+      const bx = canvas.width / 2 + Math.cos(angle) * rx;
+      const by = canvas.height / 2 + Math.sin(angle) * ry;
+      const bz = (Math.random() - 0.5) * 160;
 
-    canvas.addEventListener('pointermove', handlePointerMove, { passive: true });
-    canvas.addEventListener('pointerenter', handlePointerMove, { passive: true });
-    canvas.addEventListener('pointerleave', handlePointerLeave, { passive: true });
+      const isAnchor = i % 5 === 0;
 
-    // Initialize 28 Luminous Glowing Dots Orbiting Randomly around the Rose
-    const orbitDots: OrbitDot[] = Array.from({ length: 28 }, (_, i) => {
-      const isGlowPulse = i % 3 === 0;
-      return {
+      nodes.push({
         id: i,
-        baseAngle: Math.random() * Math.PI * 2,
-        speed: (i % 2 === 0 ? 1 : -1) * (0.0002 + Math.random() * 0.0004),
-        orbitX: 180 + Math.random() * 340,
-        orbitY: 90 + Math.random() * 200,
-        tilt: -Math.PI / 7 + (Math.random() - 0.5) * 0.35,
-        radius: isGlowPulse ? 4.2 : 1.8 + Math.random() * 1.6,
-        color: isGlowPulse ? '#fff5f7' : i % 2 === 0 ? '#ff9eaa' : '#fda4af',
-        glowColor: isGlowPulse ? 'rgba(255, 158, 170, 0.95)' : 'rgba(251, 113, 133, 0.75)',
-        isGlowPulse,
+        x: bx,
+        y: by,
+        z: bz,
+        baseX: bx,
+        baseY: by,
+        baseZ: bz,
+        vx: 0,
+        vy: 0,
+        vz: 0,
+        radius: isAnchor ? 4.8 : Math.random() * 2.2 + 1.4,
+        isAnchor,
+        color: isAnchor ? '#f3e8ff' : colors[i % colors.length],
+        glowColor: isAnchor ? 'rgba(124, 58, 237, 0.95)' : 'rgba(91, 33, 182, 0.65)',
         phase: Math.random() * Math.PI * 2,
-      };
-    });
+      });
+    }
 
-    // Initialize 22 Spread-Out Orbiting Flying Rose Petals using authentic reference petal sprites
-    const flyingPetals: FlyingPetal[] = Array.from({ length: 22 }, (_, i) => ({
-      id: i,
-      spriteIndex: i % 4,
-      angle: (i / 22) * Math.PI * 2 + Math.random() * 0.4,
-      orbitX: 250 + Math.random() * 260,
-      orbitY: 130 + Math.random() * 180,
-      speed: 0.00015 + Math.random() * 0.00022,
-      x: -1000,
-      y: -1000,
-      vx: 0,
-      vy: 0,
-      rotation: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.015,
-      width: 40 + Math.random() * 20,
-      height: 45 + Math.random() * 25,
-      opacity: 0.65 + Math.random() * 0.35,
-      phase: Math.random() * Math.PI * 2,
-      depth: Math.random(),
-    }));
-
-    // Initialize 60 Background Micro Light Stardust Particles
+    // 2. Initialize Ambient Background Micro Particles (60 Particles)
     const particles: Particle[] = Array.from({ length: 60 }, () => ({
-      x: Math.random(),
-      y: Math.random(),
-      radius: 0.6 + Math.random() * 1.6,
-      alpha: 0.14 + Math.random() * 0.32,
-      phase: Math.random() * Math.PI * 2,
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      z: (Math.random() - 0.5) * 180,
+      radius: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.3 + 0.08,
+      speedY: (Math.random() - 0.5) * 0.15 - 0.05,
     }));
 
-    const getRosePosition = () => ({
-      x: width >= 1024 ? width * 0.76 : width * 0.5,
-      y: width >= 1024 ? height * 0.5 : height * 0.72,
-    });
+    // Simulation Render Loop
+    const render = () => {
+      const width = canvas.width;
+      const height = canvas.height;
+      ctx.clearRect(0, 0, width, height);
+      time += 0.012;
 
-    let currentMx = 0;
-    let currentMy = 0;
+      const centerX = width / 2;
+      const centerY = height / 2;
 
-    // Helper: Draw authentic 3D Orbiting Flying Rose Petal Sprite
-    const drawFlyingPetal = (petal: FlyingPetal) => {
-      const img = petalImgs[petal.spriteIndex];
-      if (img && img.complete) {
-        ctx.save();
-        ctx.translate(petal.x, petal.y);
-        ctx.rotate(petal.rotation);
+      // Dark Obsidian Violet Radial Aura
+      const bgGlow = ctx.createRadialGradient(
+        centerX,
+        centerY,
+        30,
+        centerX,
+        centerY,
+        240
+      );
+      bgGlow.addColorStop(0, 'rgba(91, 33, 182, 0.15)');
+      bgGlow.addColorStop(0.6, 'rgba(15, 10, 30, 0.06)');
+      bgGlow.addColorStop(1, 'rgba(5, 4, 13, 0)');
+      ctx.fillStyle = bgGlow;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 240, 0, Math.PI * 2);
+      ctx.fill();
 
-        const scale = (0.5 + petal.depth * 0.6) * (width < 640 ? 0.75 : 1.0);
-        ctx.scale(scale, scale);
+      // Render Floating Micro Particles
+      particles.forEach((p) => {
+        p.y += p.speedY;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
 
-        ctx.globalAlpha = petal.opacity;
-
-        // Soft crimson aura behind floating petal
-        const pAura = ctx.createRadialGradient(0, 0, 5, 0, 0, 45);
-        pAura.addColorStop(0, 'rgba(244, 63, 94, 0.25)');
-        pAura.addColorStop(1, 'rgba(5, 4, 13, 0)');
-        ctx.fillStyle = pAura;
+        const pScale = 360 / (360 + p.z);
+        ctx.fillStyle = `rgba(139, 92, 246, ${p.alpha * pScale})`;
         ctx.beginPath();
-        ctx.arc(0, 0, 45, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius * pScale, 0, Math.PI * 2);
         ctx.fill();
+      });
 
-        const w = img.width;
-        const h = img.height;
-        ctx.drawImage(img, -w / 2, -h / 2, w, h);
+      // Update Node Motion & Interaction Physics
+      nodes.forEach((n) => {
+        const driftX = Math.sin(time + n.phase) * 18 + Math.cos(time * 0.6 + n.id) * 10;
+        const driftY = Math.cos(time * 0.7 + n.phase) * 16 + Math.sin(time * 0.4 + n.id) * 8;
+        const driftZ = Math.sin(time * 0.5 + n.phase) * 20;
 
-        ctx.restore();
-        ctx.globalAlpha = 1;
-      }
-    };
+        const targetX = n.baseX + driftX;
+        const targetY = n.baseY + driftY;
+        const targetZ = n.baseZ + driftZ;
 
-    // Update Petal Physics & Interactive Mouse Deflection
-    const updateFlyingPetal = (
-      petal: FlyingPetal,
-      cx: number,
-      cy: number,
-      delta: number
-    ) => {
-      petal.angle += petal.speed * delta;
-      const wave = Math.sin(performance.now() * 0.0008 + petal.phase);
+        // Cursor Disturbance Interaction Physics
+        if (mouseState.active) {
+          const distToMouse = Math.hypot(mouseState.x - n.x, mouseState.y - n.y);
+          const maxDist = 160;
 
-      const targetX = cx + Math.cos(petal.angle) * (petal.orbitX + wave * 20);
-      const targetY = cy + Math.sin(petal.angle) * (petal.orbitY + wave * 14);
+          if (distToMouse < maxDist) {
+            const pullForce = (1 - distToMouse / maxDist) * 25;
+            const angleToMouse = Math.atan2(mouseState.y - n.y, mouseState.x - n.x);
 
-      // Spring pull towards orbit target
-      petal.vx += (targetX - petal.x) * 0.0045;
-      petal.vy += (targetY - petal.y) * 0.0045;
+            n.vx += Math.cos(angleToMouse) * pullForce * 0.05;
+            n.vy += Math.sin(angleToMouse) * pullForce * 0.05;
+          }
+        }
 
-      // Mouse Hover Wind Interaction Physics
-      const mouse = mouseRef.current;
-      if (mouse.active) {
-        const dx = petal.x - mouse.x;
-        const dy = petal.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        const forceRadius = 180;
+        n.x += (targetX - n.x) * 0.03 + n.vx;
+        n.y += (targetY - n.y) * 0.03 + n.vy;
+        n.z += (targetZ - n.z) * 0.03 + n.vz;
 
-        if (dist > 0 && dist < forceRadius) {
-          const force = Math.pow(1 - dist / forceRadius, 2) * 1.8;
-          // Repulsive force + swirl vortex component
-          petal.vx += (dx / dist) * force * 1.3 + (-dy / dist) * force * 0.45;
-          petal.vy += (dy / dist) * force * 1.3 + (dx / dist) * force * 0.45;
-          petal.rotationSpeed += (Math.random() - 0.5) * 0.006;
+        n.vx *= 0.88;
+        n.vy *= 0.88;
+        n.vz *= 0.88;
+      });
+
+      // 3. Render Mysterious Violet-Black Laser Network Lines
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const n1 = nodes[i];
+          const n2 = nodes[j];
+
+          const dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
+          const maxConnectDist = 145;
+
+          if (dist < maxConnectDist) {
+            const lineAlpha = (1 - dist / maxConnectDist) * 0.35;
+
+            ctx.beginPath();
+            ctx.moveTo(n1.x, n1.y);
+            ctx.lineTo(n2.x, n2.y);
+
+            const isAnchorConnection = n1.isAnchor || n2.isAnchor;
+            if (isAnchorConnection) {
+              ctx.strokeStyle = `rgba(167, 139, 250, ${lineAlpha * 1.2})`;
+              ctx.lineWidth = 1.1;
+            } else {
+              ctx.strokeStyle = `rgba(91, 33, 182, ${lineAlpha})`;
+              ctx.lineWidth = 0.75;
+            }
+            ctx.stroke();
+          }
         }
       }
 
-      // Damping
-      petal.vx *= 0.92;
-      petal.vy *= 0.92;
+      // 4. Render Temporary Cursor Laser Connection Lines
+      if (mouseState.active) {
+        const sortedByMouse = [...nodes].sort(
+          (a, b) => Math.hypot(mouseState.x - a.x, mouseState.y - a.y) - Math.hypot(mouseState.x - b.x, mouseState.y - b.y)
+        );
 
-      petal.x += petal.vx * (delta / 16.67);
-      petal.y += petal.vy * (delta / 16.67);
-      petal.rotation += petal.rotationSpeed * (delta / 16.67);
-
-      if (petal.x === -1000) {
-        petal.x = targetX;
-        petal.y = targetY;
+        sortedByMouse.slice(0, 4).forEach((nearestNode) => {
+          const d = Math.hypot(mouseState.x - nearestNode.x, mouseState.y - nearestNode.y);
+          if (d < 180) {
+            const cursorAlpha = (1 - d / 180) * 0.6;
+            ctx.beginPath();
+            ctx.moveTo(mouseState.x, mouseState.y);
+            ctx.lineTo(nearestNode.x, nearestNode.y);
+            ctx.strokeStyle = `rgba(167, 139, 250, ${cursorAlpha})`;
+            ctx.lineWidth = 1.3;
+            ctx.setLineDash([3, 3]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
+        });
       }
-    };
 
-    // Main Render Loop
-    const render = (time: number) => {
-      const delta = Math.min(time - previousTime, 32);
-      previousTime = time;
+      // 5. Render Mysterious Living System Nodes
+      nodes.forEach((n) => {
+        const scale = 360 / (360 + n.z);
+        const drawRadius = n.radius * scale;
 
-      ctx.clearRect(0, 0, width, height);
-
-      // Smooth mouse tilt damping
-      currentMx += (mouseRef.current.targetX - currentMx) * 0.06;
-      currentMy += (mouseRef.current.targetY - currentMy) * 0.06;
-
-      const { x: roseX, y: roseY } = getRosePosition();
-      const drawX = roseX + currentMx * 0.8;
-      const drawY = roseY + currentMy * 0.8;
-
-      // 1. Render Background Light Stardust
-      particles.forEach((p) => {
-        const pulse = 0.6 + Math.sin(time * 0.0012 + p.phase) * 0.4;
-        ctx.globalAlpha = p.alpha * pulse;
-        ctx.fillStyle = '#fecdd3';
-        ctx.beginPath();
-        ctx.arc(p.x * width, p.y * height, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-
-      // 2. Render Luminous Glowing Dots Revolving Randomly Around the Rose (Zero Ring Lines)
-      orbitDots.forEach((dot) => {
-        const angle = dot.baseAngle + time * dot.speed;
-        const waveX = Math.sin(time * 0.001 + dot.phase) * 18;
-        const waveY = Math.cos(time * 0.0013 + dot.phase) * 12;
-
-        const localX = Math.cos(angle) * (dot.orbitX + waveX);
-        const localY = Math.sin(angle) * (dot.orbitY + waveY);
-
-        const cosTilt = Math.cos(dot.tilt);
-        const sinTilt = Math.sin(dot.tilt);
-
-        const worldX = drawX + (localX * cosTilt - localY * sinTilt);
-        const worldY = drawY + (localX * sinTilt + localY * cosTilt);
-
-        const pulse = 0.85 + Math.sin(time * 0.002 + dot.phase) * 0.35;
-        const drawRadius = dot.radius * pulse;
-
-        // Soft radial glow aura for pulsing dots
-        if (dot.isGlowPulse) {
+        if (n.isAnchor) {
           const glowGrad = ctx.createRadialGradient(
-            worldX,
-            worldY,
+            n.x,
+            n.y,
             1,
-            worldX,
-            worldY,
-            drawRadius * 4.5
+            n.x,
+            n.y,
+            drawRadius * 4.8
           );
-          glowGrad.addColorStop(0, dot.glowColor);
+          glowGrad.addColorStop(0, n.glowColor);
           glowGrad.addColorStop(1, 'rgba(5, 4, 13, 0)');
           ctx.fillStyle = glowGrad;
           ctx.beginPath();
-          ctx.arc(worldX, worldY, drawRadius * 4.5, 0, Math.PI * 2);
+          ctx.arc(n.x, n.y, drawRadius * 4.8, 0, Math.PI * 2);
           ctx.fill();
         }
 
-        // Dot Core
-        ctx.fillStyle = dot.color;
+        ctx.fillStyle = n.color;
+        ctx.shadowBlur = n.isAnchor ? 16 : 6;
+        ctx.shadowColor = n.glowColor;
         ctx.beginPath();
-        ctx.arc(worldX, worldY, drawRadius, 0, Math.PI * 2);
+        ctx.arc(n.x, n.y, drawRadius, 0, Math.PI * 2);
         ctx.fill();
+        ctx.shadowBlur = 0;
       });
 
-      // 3. Update Flying Petal Positions with Interactive Physics
-      flyingPetals.forEach((petal) => updateFlyingPetal(petal, drawX, drawY, delta));
-
-      // 5. Draw Background Petals (depth < 0.5 -> behind rose in 3D space)
-      flyingPetals.forEach((petal) => {
-        if (petal.depth < 0.5) drawFlyingPetal(petal);
-      });
-
-      // 6. Draw Backgroundless Rose Visual from User Image
-      if (roseLoaded || roseImg.complete) {
-        ctx.save();
-        ctx.translate(drawX, drawY);
-
-        // Living Floating Motion & Breathing Pulse
-        const floatY = Math.sin(time * 0.0015) * 7;
-        const pulse = 1 + Math.sin(time * 0.001) * 0.016;
-        ctx.translate(0, floatY);
-        ctx.scale(pulse, pulse);
-
-        // Ambient Deep Radiant Crimson Aura behind Rose (Fades seamlessly to section theme #210a14)
-        const backAura = ctx.createRadialGradient(0, 0, 20, 0, 0, 270);
-        backAura.addColorStop(0, 'rgba(244, 63, 94, 0.38)');
-        backAura.addColorStop(0.45, 'rgba(190, 18, 60, 0.18)');
-        backAura.addColorStop(0.85, 'rgba(88, 7, 30, 0.08)');
-        backAura.addColorStop(1, 'rgba(33, 10, 20, 0)');
-        ctx.fillStyle = backAura;
-        ctx.beginPath();
-        ctx.arc(0, 0, 270, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Fit image dynamically with responsive mobile scaling
-        const maxVisualDim = Math.min(
-          width * (width < 640 ? 0.65 : width < 1024 ? 0.75 : 0.88),
-          height * (width < 640 ? 0.45 : width < 1024 ? 0.55 : 0.88),
-          540
-        );
-        const scale = maxVisualDim / Math.max(roseImg.width, roseImg.height);
-        const renderWidth = roseImg.width * scale;
-        const renderHeight = roseImg.height * scale;
-
-        ctx.drawImage(
-          roseImg,
-          -renderWidth / 2,
-          -renderHeight / 2,
-          renderWidth,
-          renderHeight
-        );
-
-        ctx.restore();
-      }
-
-      // 7. Draw Foreground Petals (depth >= 0.5 -> revolving in front of rose!)
-      flyingPetals.forEach((petal) => {
-        if (petal.depth >= 0.5) drawFlyingPetal(petal);
-      });
-
-      // 8. Interactive Cursor Glow
-      if (mouseRef.current.active) {
-        const mGlow = ctx.createRadialGradient(
-          mouseRef.current.x,
-          mouseRef.current.y,
-          0,
-          mouseRef.current.x,
-          mouseRef.current.y,
-          95
-        );
-        mGlow.addColorStop(0, 'rgba(255, 158, 170, 0.18)');
-        mGlow.addColorStop(1, 'rgba(225, 29, 72, 0)');
-        ctx.fillStyle = mGlow;
-        ctx.beginPath();
-        ctx.arc(mouseRef.current.x, mouseRef.current.y, 95, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      animationFrame = requestAnimationFrame(render);
+      animId = requestAnimationFrame(render);
     };
 
-    animationFrame = requestAnimationFrame(render);
+    render();
 
     return () => {
-      cancelAnimationFrame(animationFrame);
-      resizeObserver.disconnect();
-      canvas.removeEventListener('pointermove', handlePointerMove);
-      canvas.removeEventListener('pointerenter', handlePointerMove);
-      canvas.removeEventListener('pointerleave', handlePointerLeave);
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', updateSize);
     };
-  }, []);
+  }, [mouseState.active, mouseState.x, mouseState.y]);
 
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full select-none pointer-events-none"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full h-[420px] lg:h-[480px] xl:h-[520px] max-w-4xl mx-auto flex items-center justify-center select-none cursor-pointer group"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-20 cursor-pointer pointer-events-auto" />
+      <canvas ref={canvasRef} className="w-full h-full object-contain pointer-events-none" />
     </div>
   );
 };
