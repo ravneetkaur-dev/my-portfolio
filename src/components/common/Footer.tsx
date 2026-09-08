@@ -64,7 +64,7 @@ export const FooterSheet: React.FC<FooterSheetProps> = ({ isOpen, onClose, onNav
               </div>
 
               <p className="text-sm font-bold text-gray-300 leading-relaxed max-w-md pt-1">
-                You actually read the whole thing. Respect. <br />
+                You actually read the whole thing. Respect. 🫡<br />
                 No, there is no secret button. I checked.
               </p>
               
@@ -191,7 +191,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({ onNavigate }) => {
         </div>
 
         <p className="text-sm font-bold text-gray-300 leading-relaxed max-w-md pb-5 border-b border-violet-900/40">
-          You actually read the whole thing. Respect. <br />
+          You actually read the whole thing. Respect. 🫡<br />
           No, there is no secret button. I checked.
         </p>
 
