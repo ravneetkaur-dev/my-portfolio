@@ -10,7 +10,7 @@ export const PROJECTS_DATA: Project[] = [
     tags: ['Next.js', 'NestJS', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
     image: '/projects/next-level-speed-ui.png',
     featured: true,
-    liveUrl: '#',
+    liveUrl: 'https://portal.nextlevelspeedmiami.com/',
     githubUrl: '#',
     stats: [
       { label: 'Active Athletes', value: '10,000+' },
@@ -97,7 +97,7 @@ export const PROJECTS_DATA: Project[] = [
     tags: ['React', 'Next.js', 'NestJS', 'PostgreSQL', 'AWS S3', 'Tailwind CSS'],
     image: '/projects/signature-k9.png',
     featured: true,
-    liveUrl: '#',
+    liveUrl: 'https://portal.signaturek9trainingacademy.com/',
     githubUrl: '#',
     stats: [
       { label: 'Team Role', value: 'Full-Stack' },
@@ -184,7 +184,7 @@ export const PROJECTS_DATA: Project[] = [
     tags: ['Next.js', 'NestJS', 'PostgreSQL', 'Redis', 'WebSockets', 'AWS'],
     image: '/projects/taxificient.png',
     featured: true,
-    liveUrl: '#',
+    liveUrl: 'https://backend.taxificient.ai/',
     githubUrl: '#',
     stats: [
       { label: 'Team Role', value: 'Full-Stack' },
@@ -267,8 +267,8 @@ export const PROJECTS_DATA: Project[] = [
     tags: ['Next.js', 'NestJS', 'PostgreSQL', 'Supabase', 'Vercel', 'Render'],
     image: '/projects/eventnest.png',
     featured: true,
-    liveUrl: '#',
-    githubUrl: '#',
+    liveUrl: 'https://event-nest-gamma.vercel.app/',
+    githubUrl: 'https://github.com/ravneetkaur-dev/EventNest/',
     stats: [
       { label: 'Project Type', value: 'Personal / Solo' },
       { label: 'Verification', value: 'QR Code + Email' },

@@ -7,8 +7,7 @@ import { Project } from '@/types/project';
 import { LaptopMockup } from '@/components/visual/LaptopMockup';
 import { Modal } from '@/components/common/Modal';
 import { TechIcon } from '@/components/common/TechIcon';
-import { GithubIcon } from '@/icons';
-import { ChevronLeft, ChevronRight, ExternalLink, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 export const ProjectsSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -129,7 +128,7 @@ export const ProjectsSection: React.FC = () => {
                   onClick={() => setSelectedProject(currentProject)}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-purple-700 text-white font-mono text-xs font-semibold tracking-wider hover:from-violet-500 hover:to-purple-600 shadow-md shadow-violet-950 transition-all cursor-pointer border border-violet-400/30"
                 >
-                  <span>EXPLORE PROJECT </span>
+                  <span>EXPLORE PROJECT</span>
                   <ArrowRight size={14} />
                 </button>
               </div>

@@ -8,6 +8,8 @@ import { Project } from '@/types/project';
 import { TechIcon } from '@/components/common/TechIcon';
 import { GithubIcon } from '@/icons';
 
+import { RestrictedRepoModal } from '@/components/common/RestrictedRepoModal';
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -16,6 +18,7 @@ interface ModalProps {
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, project }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [isRestrictedModalOpen, setIsRestrictedModalOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -48,9 +51,10 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, project }) => {
   const d = project.details;
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10">
+    <>
+      <AnimatePresence>
+        {isOpen && (
+          <div key="project-modal-backdrop" className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10">
           {/* Backdrop Blur Overlay with Ambient Glow */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -140,15 +144,26 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, project }) => {
                       <span>LIVE DEMO</span>
                     </a>
 
-                    <a
-                      href={project.githubUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-violet-950/80 hover:bg-violet-900/80 text-violet-200 border border-violet-700/50 text-xs font-mono font-semibold tracking-wider transition-all cursor-pointer"
-                    >
-                      <GithubIcon size={15} />
-                      <span>GITHUB REPO</span>
-                    </a>
+                    {project.githubUrl && project.githubUrl !== '#' && project.githubUrl.trim() !== '' ? (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-violet-950/80 hover:bg-violet-900/80 text-violet-200 border border-violet-700/50 text-xs font-mono font-semibold tracking-wider transition-all cursor-pointer"
+                      >
+                        <GithubIcon size={15} />
+                        <span>GITHUB REPO</span>
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setIsRestrictedModalOpen(true)}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-violet-950/80 hover:bg-violet-900/80 text-violet-200 border border-violet-700/50 text-xs font-mono font-semibold tracking-wider transition-all cursor-pointer"
+                      >
+                        <GithubIcon size={15} />
+                        <span>GITHUB REPO</span>
+                      </button>
+                    )}
                   </div>
 
                   <div className="text-xs font-mono text-violet-400">
@@ -300,6 +315,18 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, project }) => {
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+      </AnimatePresence>
+
+      {/* Restricted Repository Modal */}
+      <RestrictedRepoModal
+        isOpen={isRestrictedModalOpen}
+        onClose={() => setIsRestrictedModalOpen(false)}
+        onRequestAccess={() => {
+          setIsRestrictedModalOpen(false);
+          onClose();
+        }}
+        project={project}
+      />
+    </>
   );
 };
